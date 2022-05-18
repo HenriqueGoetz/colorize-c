@@ -16,6 +16,7 @@ Obs.: Para padronização de código, assume-se que todas as imagens utilizadas 
 - GCC
 - OpenMP
 - Make
+- Biblioteca stb_image
 
 ### Comandos de Instalação
 
