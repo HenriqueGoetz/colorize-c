@@ -114,11 +114,10 @@ void colorize_image() {
 
 	int i;
 
-	#pragma omp parallel for
 	for(i = 1; i < dest_width - 1; i++) {
 	
 		int j;
-		
+
 		for(j = 1; j < dest_height - 1; j++) {
 					
 			float r, g, b;
