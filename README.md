@@ -32,6 +32,12 @@ Para remover o programa compilado, utilize:
 
 ### Comandos de Execução
 
-Para executar o programa, utilize o comando abaixo, onde grayscale.png é o caminho da imagem que deve ser colorida, colorful.png é a imagem colorida que será usada como origem das cores e output.png é o nome da imagem resultante.
+Para executar o programa, utilize o comando abaixo, onde grayscale.png é o caminho da imagem que deve ser colorida, colorful.png é a imagem colorida que será usada como origem das cores, output.png é o nome da imagem resultante e number_of_threads a quantidade de threads escolhida para o algoritmo concorrente.
+
+Sequencial:
 
 `./colorize grayscale.png colorful.png output.png`
+
+Concorrente:
+
+`./colorize grayscale.png colorful.png output.png number_of_threads`
