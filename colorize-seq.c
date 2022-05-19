@@ -112,12 +112,10 @@ void get_more_related_pixel(int m[3][3], float *r, float *g, float *b) {
 
 void colorize_image() {
 
-	int i;
+	int i, j;
 
 	for(i = 1; i < dest_width - 1; i++) {
-	
-		int j;
-
+			
 		for(j = 1; j < dest_height - 1; j++) {
 					
 			float r, g, b;
@@ -152,7 +150,12 @@ void colorize_image() {
 
 int main(int argc, char *argv[]) {
 	
+
+	/* Inicializa o timer */
+	double t1, t2, t3, t4;
 	int dest_channels, orig_channels;
+
+	t1 = omp_get_wtime();
 
 	if(argc != 4) {
 		printf("Formato inválido.\nChame colorize grayscale.png colorful.png output\n");
@@ -197,23 +200,22 @@ int main(int argc, char *argv[]) {
 	dest_cf_image = malloc(dest_width * dest_height * 3);
 	paint_borders();
 
-	/* Inicializa o timer */
-	double t1, t2;
-	t1 = omp_get_wtime();
-	
+	t2 = omp_get_wtime();
+
 	/* Realiza a tarefa de colorir a imagem grayscale. (Maior complexidade) */
 	colorize_image();
-
-	/* Finaliza o timer */
-	t2 = omp_get_wtime();
-	printf("%f\n", t2 - t1);
+	
+	t3 = omp_get_wtime();
+	printf("Tempo de Colorize: %f\n", t3 - t2);
 	
 	/* Escreve a imagem resultado conforme o parêmtro fornecido */
-
 	stbi_write_png(argv[3], dest_width, dest_height, 3, dest_cf_image, dest_width * 3);
 	
 	/* Libera a memória utilizada. */
 	clear_images();
+
+	t4 = omp_get_wtime();
+	printf("Tempo de Execução Total: %f\n", t4 - t1);
 
 	return 0;
 }

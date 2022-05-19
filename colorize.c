@@ -116,11 +116,11 @@ void colorize_image() {
 
 	#pragma omp parallel for
 	for(i = 1; i < dest_width - 1; i++) {
-	
 		int j;
-		
 		for(j = 1; j < dest_height - 1; j++) {
-					
+			
+			/* ... */
+
 			float r, g, b;
 
 			/*
@@ -152,13 +152,26 @@ void colorize_image() {
 }
 
 int main(int argc, char *argv[]) {
-	
+
+	/* Inicializa o timer */
+	double t1, t2, t3, t4;
 	int dest_channels, orig_channels;
 
-	if(argc != 4) {
-		printf("Formato inválido.\nChame colorize grayscale.png colorful.png output\n");
+	t1 = omp_get_wtime();
+
+	if(argc != 5) {
+		printf("Formato inválido.\nChame colorize grayscale.png colorful.png output 8(number of threads) \n");
 		exit(1);
 	}
+
+	char *ptr;
+	long number_of_threads = strtol(argv[4], &ptr, 10);
+	if(!number_of_threads) {
+		printf("Número de threads inválido.\n");
+		exit(1);
+	}
+
+	omp_set_num_threads(number_of_threads);
 
 	/* Carrega as imagens fornecidas com parâmetros*/
 
@@ -198,23 +211,22 @@ int main(int argc, char *argv[]) {
 	dest_cf_image = malloc(dest_width * dest_height * 3);
 	paint_borders();
 
-	/* Inicializa o timer */
-	double t1, t2;
-	t1 = omp_get_wtime();
-	
+	t2 = omp_get_wtime();
+
 	/* Realiza a tarefa de colorir a imagem grayscale. (Maior complexidade) */
 	colorize_image();
-
-	/* Finaliza o timer */
-	t2 = omp_get_wtime();
-	printf("%f\n", t2 - t1);
+	
+	t3 = omp_get_wtime();
+	printf("Tempo de Colorize: %f\n", t3 - t2);
 	
 	/* Escreve a imagem resultado conforme o parêmtro fornecido */
-
 	stbi_write_png(argv[3], dest_width, dest_height, 3, dest_cf_image, dest_width * 3);
 	
 	/* Libera a memória utilizada. */
 	clear_images();
+
+	t4 = omp_get_wtime();
+	printf("Tempo de Execução Total: %f\n", t4 - t1);
 
 	return 0;
 }
