@@ -1,43 +1,47 @@
 # Colorize
 
-Esse projeto tem como objetivo comparar a execução de um algorimo sequencial e uma respectiva versão utilizando a API OpenMP.
+This project aims to compare the execution of a sequential algorithm and its corresponding version using the OpenMP API.
 
+<p align="center">
+  <img src="gs/image-1.png" alt="Grayscale input" width="30%" />
+  <img src="cf/image-1.png" alt="Color reference" width="30%" />
+  <img src="op/image-1.png" alt="Colorized result" width="30%" />
+</p>
 
-### Programa
+### Program
 
-O programa Colorize tem como objetivo colorir uma imagem originalmente em tons de cinza de acordo com os pixels de uma outra imagem fornecida. Para isso, ele realiza a comparação dos pixels mais semelhantes e atribui a cor de um pixel da imagem colorida para a imagem resultante.
+The Colorize program aims to color an image that is originally in grayscale according to the pixels of another provided image. To do this, it compares the most similar pixels and assigns the color of a pixel from the colored image to the resulting image.
 
-O algoritmo utilizado é uma versão simplificada retirada do artigo Transferring Color to Greyscale Images dos autores: Tomihisa Welsh, Michael Ashikhmin e Klaus Mueller. Um pdf com o artigo original está na raiz desse repositório.
+The algorithm used is a simplified version taken from the paper "Transferring Color to Greyscale Images" by Tomihisa Welsh, Michael Ashikhmin, and Klaus Mueller. A PDF with the original article is at the root of this repository.
 
-Obs.: Para padronização de código, assume-se que todas as imagens utilizadas devem ser PNG.
+Note: For code standardization, it is assumed that all images used must be PNG.
 
-### Depedências
+### Dependencies
 
 - GCC
 - OpenMP
 - Make
-- Biblioteca stb_image
+- stb_image library
 
-### Comandos de Instalação
+### Installation Commands
 
-Para compilar o programa utilizando a versão concorrente, utilize:
+To compile the program using the concurrent version, use:
 `make`
 
-Para compilar o programa utilizando a versão sequencial, utilize:
+To compile the program using the sequential version, use:
 `make seq`
 
-Para remover o programa compilado, utilize:
+To remove the compiled program, use:
 `make clean`
 
+### Execution Commands
 
-### Comandos de Execução
+To run the program, use the command below, where grayscale.png is the path to the image that should be colorized, colorful.png is the reference colored image used as the source of colors, output.png is the name of the resulting image, and number_of_threads is the number of threads chosen for the concurrent algorithm.
 
-Para executar o programa, utilize o comando abaixo, onde grayscale.png é o caminho da imagem que deve ser colorida, colorful.png é a imagem colorida que será usada como origem das cores, output.png é o nome da imagem resultante e number_of_threads a quantidade de threads escolhida para o algoritmo concorrente.
-
-Sequencial:
+Sequential:
 
 `./colorize grayscale.png colorful.png output.png`
 
-Concorrente:
+Concurrent:
 
 `./colorize grayscale.png colorful.png output.png number_of_threads`
